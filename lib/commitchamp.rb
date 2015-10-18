@@ -71,22 +71,19 @@ module Commitchamp
 				contributors.each do |user|
 
 					login = user["author"]["login"].to_sym
-					each_sum[:additions] = 0
-					each_sum[:deletions] = 0
-					each_sum[:changes] = 0
-					each_sum[:commits] = 0
+					sums_by_user[login] = {}
+					sums_by_user[login][:additions]	= 0
+					sums_by_user[login][:deletions]	= 0
+					sums_by_user[login][:changes]	= 0
+					sums_by_user[login][:commits]	= 0
 
 					user["weeks"].each do |week|
-						each_sum[:additions] += week["a"]
-						each_sum[:deletions] += week["d"]
-						each_sum[:changes]   += week["a"] + week["d"]
-						each_sum[:commits]   += week["c"]
+						sums_by_user[login][:additions]	+= week["a"]
+						sums_by_user[login][:deletions]	+= week["d"]
+						sums_by_user[login][:changes]	+= week["a"] + week["d"]
+						sums_by_user[login][:commits]	+= week["c"]
 					end
-					sums_by_user[login] = {}
-					sums_by_user[login][:additions]	= each_sum[:additions]
-					sums_by_user[login][:deletions]	= each_sum[:deletions]
-					sums_by_user[login][:changes]	= each_sum[:changes]
-					sums_by_user[login][:commits]	= each_sum[:commits]
+
 				end
 			end
 			sums_by_user
