@@ -63,25 +63,21 @@ module Commitchamp
 	    end
 
 	    def build_data(owner, repos)
-			each_sum = Hash.new
-			sums_by_user = Hash.new
+
+			sums_per_user = Hash.new
 
 	    	repos.each do |repo|
 	    		contributors = @github.get_contributors(owner, repo)
-				contributors.each do |user|
+				contributors.each do |contributor|
 
-					login = user["author"]["login"].to_sym
-					sums_by_user[login] = {}
-					sums_by_user[login][:additions]	= 0
-					sums_by_user[login][:deletions]	= 0
-					sums_by_user[login][:changes]	= 0
-					sums_by_user[login][:commits]	= 0
+					user = contributor["author"]["login"].to_sym
+					sums_per_user[user] ||= Hash.new(0)
 
 					user["weeks"].each do |week|
-						sums_by_user[login][:additions]	+= week["a"]
-						sums_by_user[login][:deletions]	+= week["d"]
-						sums_by_user[login][:changes]	+= week["a"] + week["d"]
-						sums_by_user[login][:commits]	+= week["c"]
+						sums_per_user[user][:additions]	+= week["a"]
+						sums_per_user[user][:deletions]	+= week["d"]
+						sums_per_user[user][:changes]	+= week["a"] + week["d"]
+						sums_per_user[user][:commits]	+= week["c"]
 					end
 
 				end
