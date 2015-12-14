@@ -1,41 +1,60 @@
 # Commitchamp
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/commitchamp`. To experiment with that code, run `bin/console` for an interactive prompt.
+## Description
 
-TODO: Delete this and the text above, and describe your gem
+A ruby gem I built to aggregate commit statistics from Github while at The Iron Yard Academy.
 
-## Installation
+## Learning Objectives
 
-Add this line to your application's Gemfile:
+* Be able to make HTTP requests from Ruby
+* Be able to work with the nested JSON responses that most APIs return
+* Have some understanding of Authentication through Request Headers
 
-```ruby
-gem 'commitchamp'
-```
+## Performance Objectives
 
-And then execute:
-
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install commitchamp
+* HTTParty (or similar) for making requests
+* Parsed JSON responses
 
 ## Usage
 
-TODO: Write usage instructions here
+Running `bundle exec ruby lib/commit_champ.rb` should:
 
-## Development
+* Prompt the user for an auth token
+* Ask the user what org/repo to get data about from github
+* Print a table of contributions ranked in various ways
+* Ask the user if they'd like to fetch another or quit.
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake test` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+## Functionality
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+* Get the list of [contributions][contributors] for the specified repo.
+* Figure out how many lines the user added, deleted, and their commit count.
 
-## Contributing
+[contributors]: https://developer.github.com/v3/repos/statistics/#contributors
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/commitchamp. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](contributor-covenant.org) code of conduct.
+Once all the contributions have been collected for a repo, offer to sort
+them by:
 
+1) lines added
+2) lines deleted
+3) total lines changed
+4) commits made
 
-## License
+Then print the commit counts in a table as below:
 
-The gem is available as open source under the terms of the [MIT License](http://opensource.org/licenses/MIT).
+```
+## Contributions for 'owner/repo'
+
+Username      Additions     Deletions     Commits
+User 1            13534          2954        6249
+User 2             6940           913        1603
+...
+```
+
+Finally, ask the user if they'd like to sort the data differently,
+fetch another repo, or quit.
+
+* Allow the user to specify just an organization. 
+* Get data for *all* it's repos and aggregate the data to rank the members of the organization.
+
+[members]: https://developer.github.com/v3/orgs/members/#public-members-list
 
