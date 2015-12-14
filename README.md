@@ -4,13 +4,15 @@
 
 A ruby gem I built to aggregate commit statistics from Github while at The Iron Yard Academy.
 
-## Learning Objectives
+## Objectives
+
+### Learning Objectives
 
 * Be able to make HTTP requests from Ruby
 * Be able to work with the nested JSON responses that most APIs return
 * Have some understanding of Authentication through Request Headers
 
-## Performance Objectives
+### Performance Objectives
 
 * HTTParty (or similar) for making requests
 * Parsed JSON responses
